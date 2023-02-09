@@ -1,0 +1,10 @@
+@import '@grapecity/wijmo.styles/wijmo.css';
+body {
+  font-family: sans-serif;
+  font-size: 14px;
+  margin: 50px 15px;
+}
+input,button,select,textarea {
+  font-family: inherit;
+  font-size: inherit;
+}

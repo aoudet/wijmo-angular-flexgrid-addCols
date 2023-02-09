@@ -1,0 +1,11 @@
+.container-fluid {
+  /* padding-right: 15px;
+  padding-left: 15px; */
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.wj-flexgrid {
+  height: 550px;
+  margin: 10px 0;
+}

@@ -1,0 +1,58 @@
+<p>Test works</p>
+<button (click)="onAdd()">add me</button>
+<button (click)="onAddColumn()">add me (col)</button>
+
+<div class="container-fluid">
+  <wj-flex-grid
+    #flex
+    [itemsSource]="data"
+    (initialized)="wjFlexInitialized(flex)"
+  >
+    <wj-flex-grid-column binding="No" [width]="'*'"></wj-flex-grid-column>
+    <wj-flex-grid-column binding="商品名" [width]="'*'"></wj-flex-grid-column>
+    <wj-flex-grid-column binding="受注日" [width]="'*'"></wj-flex-grid-column>
+    <wj-flex-grid-column
+      binding="金額"
+      format="c"
+      [width]="100"
+    ></wj-flex-grid-column>
+    <wj-flex-grid-column binding="値引" [width]="'*'"></wj-flex-grid-column>
+
+    <wj-flex-grid-column
+      [id]="col.id"
+      *ngFor="let col of colData"
+      [header]="col.header"
+      [binding]="col.binding"
+    >
+      <ng-template
+        wjFlexGridCellTemplate
+        [cellType]="'ColumnHeader'"
+        let-cell="cell"
+        let-item="col"
+      >
+        <ng-container>
+          <div>{{ cell.col.header }}</div>
+          <div>
+            <small>{{ col.subHeader }}</small>
+          </div>
+        </ng-container>
+      </ng-template>
+    </wj-flex-grid-column>
+    <wj-flex-grid-column
+      binding=""
+      header=""
+      [width]="'*'"
+      [isReadOnly]="true"
+      [allowDragging]="false"
+      [allowResizing]="false"
+    >
+      <ng-template
+        wjFlexGridCellTemplate
+        [cellType]="'Cell' || 'CellEdit'"
+        let-item="item"
+      >
+        <button (click)="onDelete(item)">delete me</button>
+      </ng-template>
+    </wj-flex-grid-column>
+  </wj-flex-grid>
+</div>
