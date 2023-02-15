@@ -1,5 +1,5 @@
 import { Directive, OnInit } from '@angular/core';
-import { DataType } from '@grapecity/wijmo';
+import { CollectionView, DataType } from '@grapecity/wijmo';
 import { Column, FlexGrid } from '@grapecity/wijmo.grid';
 import { last, map, tap } from 'rxjs/operators';
 import { TestComponent } from '../test/test.component';
@@ -31,6 +31,10 @@ export class AddColumns implements OnInit {
         flex.columns.length - 1,
         new Column({ binding: 'commentaires', width: '*', header: 'comments' })
       );
+
+      // flex.columns.collectionChanged.addHandler((s,e) => {
+      //   console.log('collection changes', [s,e])
+      // })
     };
   }
 
@@ -40,16 +44,16 @@ export class AddColumns implements OnInit {
       //same issue as before (index) beacause we loose info of "new"
 
       tap((colData) => {
-        console.log('In directive with data', colData);
+        console.log('In directive with data', [colData]);
 
         // this.host.flex.columns.sort((x, y) => x.visibleIndex - y.visibleIndex);
 
         setTimeout(() => {
           let startIndex_colData = this.host.flex.columns.findIndex(
-            (x) => x.binding === null
+            (x) => x.name === 'refToColumnDefs'
           );
           colData.forEach((col, idx) => {
-            let lastColIndex = startIndex_colData - (colData.length - 1 - idx);
+            let lastColIndex = startIndex_colData+idx;
 
             // get the new column index
             let newColIndex = this.host.flex.columns.findIndex(
@@ -67,8 +71,9 @@ export class AddColumns implements OnInit {
           // if(commentCol !== -1) {
           //   this.host.flex.columns.moveElement(commentCol,this.host.flex.columns.length -2);
           // }
+          this.host.flex.collectionView.refresh();          
         });
-        this.host.flex.collectionView.refresh();
+       
       })
     );
   }
