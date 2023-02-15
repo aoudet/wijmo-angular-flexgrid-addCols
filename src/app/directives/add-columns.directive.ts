@@ -60,11 +60,11 @@ export class AddColumns implements OnInit {
             this.host.flex.columns.insert(lastColIndex - 1, column[0]);            
           });
           
-          // make sure commentaire is just before delete (by default) 
-          let commentCol = this.host.flex.columns.findIndex(x => x.binding === "commentaires");
-          if(commentCol !== -1) {
-            this.host.flex.columns.moveElement(commentCol,this.host.flex.columns.length -2);
-          }
+          // // make sure commentaire is just before delete (by default) 
+          // let commentCol = this.host.flex.columns.findIndex(x => x.binding === "commentaires");
+          // if(commentCol !== -1) {
+          //   this.host.flex.columns.moveElement(commentCol,this.host.flex.columns.length -2);
+          // }
         });
         this.host.flex.collectionView.refresh();
       })
