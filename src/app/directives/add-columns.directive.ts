@@ -42,6 +42,8 @@ export class AddColumns implements OnInit {
       tap((colData) => {
         console.log('In directive with data', colData);
 
+        // this.host.flex.columns.sort((x, y) => x.visibleIndex - y.visibleIndex);
+
         setTimeout(() => {
           let startIndex_colData = this.host.flex.columns.findIndex(
             (x) => x.binding === null
@@ -57,10 +59,10 @@ export class AddColumns implements OnInit {
             let column: any = this.host.flex.columns.splice(newColIndex, 1);
 
             // this.host.flex.columns.splice(lastColIndex, 0, column[0]);
-            this.host.flex.columns.insert(lastColIndex - 1, column[0]);            
+            this.host.flex.columns.insert(lastColIndex - 1, column[0]);
           });
-          
-          // // make sure commentaire is just before delete (by default) 
+
+          // // make sure commentaire is just before delete (by default)
           // let commentCol = this.host.flex.columns.findIndex(x => x.binding === "commentaires");
           // if(commentCol !== -1) {
           //   this.host.flex.columns.moveElement(commentCol,this.host.flex.columns.length -2);
