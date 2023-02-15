@@ -1,6 +1,4 @@
 <p>Test works</p>
-<button (click)="onAdd()">add me</button>
-<button (click)="onAddColumn()">add me (col)</button>
 
 <div class="container-fluid">
   <wj-flex-grid
@@ -20,7 +18,7 @@
 
     <wj-flex-grid-column
       [id]="col.id"
-      *ngFor="let col of colData"
+      *ngFor="let col of colData | async"
       [header]="col.header"
       [binding]="col.binding"
     >
