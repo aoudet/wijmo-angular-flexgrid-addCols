@@ -38,16 +38,19 @@ export class AddColumns implements OnInit {
     this.host.colData = this.host.colData.pipe(
       //so here is your original answer ( mapped to target host's viewChild )
       //same issue as before (index) beacause we loose info of "new"
+      // same error as before, but more realisticly
+      // event base approch, with multiple subscribers (we encoutered issue where columns were put at the very end bc of reccuring moving next column)
+      // 
 
       tap((colData) => {
         console.log('In directive with data', colData);
-
-        // this.host.flex.columns.sort((x, y) => x.visibleIndex - y.visibleIndex);
 
         setTimeout(() => {
           let startIndex_colData = this.host.flex.columns.findIndex(
             (x) => x.binding === null
           );
+          //this is to focus and only reorder columns ( refered to ngFor in teplate ) this also take care of 
+          // issue where muti subricbers, moves column at the end of grid.
           colData.forEach((col, idx) => {
             let lastColIndex = startIndex_colData - (colData.length - 1 - idx);
 
@@ -63,6 +66,9 @@ export class AddColumns implements OnInit {
           });
 
           // // make sure commentaire is just before delete (by default)
+          // this is a hack to make it work, but still hav trouble when loading 
+          // furthermore the issue would be portability
+
           // let commentCol = this.host.flex.columns.findIndex(x => x.binding === "commentaires");
           // if(commentCol !== -1) {
           //   this.host.flex.columns.moveElement(commentCol,this.host.flex.columns.length -2);
