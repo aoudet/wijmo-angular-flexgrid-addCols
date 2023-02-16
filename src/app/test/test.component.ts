@@ -19,6 +19,7 @@ export class TestComponent {
     flex.selectionMode = SelectionMode.MultiRange;
 
     //code to set up event hadlers... not really relevant but needed
+
     const panel = flex.columnHeaders;
     panel.rows[0].allowMerging = true;
   }

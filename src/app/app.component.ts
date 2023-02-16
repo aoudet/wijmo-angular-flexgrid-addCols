@@ -44,7 +44,8 @@ export class AppComponent {
     const newOne = getData(1)[0];
     newOne.No = this.data.length;
 
-    this.data.push(newOne);
+    this.data.push( newOne);
+    this.data = [...this.data];
     // this.flex.collectionView.refresh();
     console.log('onADD', this.data);
   }
