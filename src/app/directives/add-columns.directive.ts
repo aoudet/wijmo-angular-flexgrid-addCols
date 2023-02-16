@@ -48,7 +48,6 @@ export class AddColumns implements OnInit {
       tap((colData) => {
         console.log('In directive with data', [colData]);
 
-
         setTimeout(() => {
           let startIndex_colData = this.host.flex.columns.findIndex(
             (x) => x.name === 'refToColumnDefs'
