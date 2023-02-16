@@ -8,7 +8,7 @@ import { TestComponent } from '../test/test.component';
   selector: '[appAddCols]',
 })
 export class AddColumns implements OnInit {
-  private startIndex_colData = 7;
+  private startIndex_colData = 7; // this is fix 2/2 only for initial load 
 
   constructor(private host: TestComponent) {
     const keepOldInit = this.host.wjFlexInitialized;
@@ -36,6 +36,7 @@ export class AddColumns implements OnInit {
         })
       );
 
+      // this is fix 2/2 here after initial load 
       this.startIndex_colData = 8;
     };
   }
@@ -48,9 +49,7 @@ export class AddColumns implements OnInit {
       tap((colData) => {
         console.log('In directive with data', [colData]);
 
-        // this.host.flex.columns.sort((x, y) => x.visibleIndex - y.visibleIndex);
-        // TODO try to modifies columns to be sorted on vidsibleIndex property before working on it....
-        //TODO
+        //this is the actual fix 1/2 
         const sorted = [
           ...this.host.flex.columns.sort(
             (x, y) => x.visibleIndex - y.visibleIndex
@@ -58,14 +57,11 @@ export class AddColumns implements OnInit {
         ];
         this.host.flex.columns.clear();
         sorted.forEach((x) => this.host.flex.columns.push(x));
+        //fix 1/2
 
         setTimeout(() => {
-          // let startIndex_colData = this.host.flex.columns.findIndex(
-          //   (x) => x.name === 'refToColumnDefs'
-          // );
-
           colData.forEach((col, idx) => {
-            let lastColIndex = this.startIndex_colData + idx;
+            let lastColIndex = this.startIndex_colData + idx; // here is the 2nd part needed
 
             // get the new column index
             let newColIndex = this.host.flex.columns.findIndex(
@@ -74,15 +70,11 @@ export class AddColumns implements OnInit {
             // remove the column from previous index and insert at the required index
             let column: any = this.host.flex.columns.splice(newColIndex, 1);
 
+            // 2 choices to do same result 
             // this.host.flex.columns.splice(lastColIndex, 0, column[0]);
             this.host.flex.columns.insert(lastColIndex - 1, column[0]);
           });
 
-          // // make sure commentaire is just before delete (by default)
-          // let commentCol = this.host.flex.columns.findIndex(x => x.binding === "commentaires");
-          // if(commentCol !== -1) {
-          //   this.host.flex.columns.moveElement(commentCol,this.host.flex.columns.length -2);
-          // }
           this.host.flex.collectionView.refresh();
         });
       })
