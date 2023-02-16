@@ -8,7 +8,7 @@ import { TestComponent } from '../test/test.component';
   selector: '[appAddCols]',
 })
 export class AddColumns implements OnInit {
-  private startIndex_colData = 7; // this is fix 2/2 only for initial load 
+  private startIndex_colData = 6; // this is fix 2/2 only for initial load
 
   constructor(private host: TestComponent) {
     const keepOldInit = this.host.wjFlexInitialized;
@@ -36,8 +36,8 @@ export class AddColumns implements OnInit {
         })
       );
 
-      // this is fix 2/2 here after initial load 
-      this.startIndex_colData = 8;
+      // this is fix 2/2 here after initial load
+      this.startIndex_colData = 7;
     };
   }
 
@@ -49,7 +49,7 @@ export class AddColumns implements OnInit {
       tap((colData) => {
         console.log('In directive with data', [colData]);
 
-        //this is the actual fix 1/2 
+        //this is the actual fix 1/2
         const sorted = [
           ...this.host.flex.columns.sort(
             (x, y) => x.visibleIndex - y.visibleIndex
@@ -70,7 +70,7 @@ export class AddColumns implements OnInit {
             // remove the column from previous index and insert at the required index
             let column: any = this.host.flex.columns.splice(newColIndex, 1);
 
-            // 2 choices to do same result 
+            // 2 choices to do same result
             // this.host.flex.columns.splice(lastColIndex, 0, column[0]);
             this.host.flex.columns.insert(lastColIndex - 1, column[0]);
           });

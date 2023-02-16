@@ -16,8 +16,6 @@
     ></wj-flex-grid-column>
     <wj-flex-grid-column binding="値引" [width]="'*'"></wj-flex-grid-column>
 
-    <wj-flex-grid-column name="refToColumnDefs" [visible]="false">
-    </wj-flex-grid-column>
     <wj-flex-grid-column
       [id]="col.id"
       *ngFor="let col of colData | async"
