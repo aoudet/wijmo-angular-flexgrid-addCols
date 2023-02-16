@@ -15,9 +15,12 @@
       [width]="100"
     ></wj-flex-grid-column>
     <wj-flex-grid-column binding="値引" [width]="'*'"></wj-flex-grid-column>
-
+    <!--  Here is the added visible false column, as a ref to insert at right index -->
     <wj-flex-grid-column name="refToColumnDefs" [visible]="false">
+    <!-- dummy column, do not do anything except mark where we want to add next columns -->
     </wj-flex-grid-column>
+
+    <!--  This is columns we are having trouble with, stream oriented with user interaction from outside scope of grid -->
     <wj-flex-grid-column
       [id]="col.id"
       *ngFor="let col of colData | async"

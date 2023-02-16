@@ -49,9 +49,16 @@ export class AddColumns implements OnInit {
         console.log('In directive with data', [colData]);
 
         setTimeout(() => {
+          //we added a column in template just before the ones we want to add
+          // want to take this index as reference to add colData[]... 
+
           let startIndex_colData = this.host.flex.columns.findIndex(
             (x) => x.name === 'refToColumnDefs'
           );
+
+          // issue is non-visible as modified columns are pushed away from default
+          // seems random, or at least 2 cases: one onLoad, and then on user input (after first display)
+          // so this do not work at index, is not right/kept so inserted columns goes everywhere..
 
           colData.forEach((col, idx) => {
             let lastColIndex = startIndex_colData + idx;
