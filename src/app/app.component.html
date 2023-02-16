@@ -1,1 +1,9 @@
-<app-test appAddCols></app-test>
+<div>
+  <button (click)="onAdd()">add me</button>
+  <button (click)="onAddColumn()">add me (col)</button>
+</div>
+<h2>1st datagrid data shows colData</h2>
+<app-test appAddCols [data]="data" [colData]="colData"></app-test>
+<h2>Other datagrid needs same colData </h2>
+<app-test appAddCols [data]="data2" [colData]="colData"></app-test>
+
