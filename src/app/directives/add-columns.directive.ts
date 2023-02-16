@@ -48,24 +48,14 @@ export class AddColumns implements OnInit {
       tap((colData) => {
         console.log('In directive with data', [colData]);
 
-        // this.host.flex.columns.sort((x, y) => x.visibleIndex - y.visibleIndex);
-        // TODO try to modifies columns to be sorted on vidsibleIndex property before working on it....
-        //TODO
-        const sorted = [
-          ...this.host.flex.columns.sort(
-            (x, y) => x.visibleIndex - y.visibleIndex
-          ),
-        ];
-        this.host.flex.columns.clear();
-        sorted.forEach((x) => this.host.flex.columns.push(x));
 
         setTimeout(() => {
-          // let startIndex_colData = this.host.flex.columns.findIndex(
-          //   (x) => x.name === 'refToColumnDefs'
-          // );
+          let startIndex_colData = this.host.flex.columns.findIndex(
+            (x) => x.name === 'refToColumnDefs'
+          );
 
           colData.forEach((col, idx) => {
-            let lastColIndex = this.startIndex_colData + idx;
+            let lastColIndex = startIndex_colData + idx;
 
             // get the new column index
             let newColIndex = this.host.flex.columns.findIndex(
