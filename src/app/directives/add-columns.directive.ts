@@ -8,7 +8,7 @@ import { TestComponent } from '../test/test.component';
   selector: '[appAddCols]',
 })
 export class AddColumns implements OnInit {
-  // private startIndex_colData = 6;
+  private startIndex_colData = 7;
 
   constructor(private host: TestComponent) {
     const keepOldInit = this.host.wjFlexInitialized;
@@ -29,12 +29,14 @@ export class AddColumns implements OnInit {
 
       flex.columns.insert(
         flex.columns.length - 1,
-        new Column({ binding: 'commentaires', width: '*', header: 'comments' })
+        new Column({
+          binding: 'commentaires',
+          width: '*',
+          header: 'comments',
+        })
       );
 
-      // flex.columns.collectionChanged.addHandler((s,e) => {
-      //   console.log('collection changes', [s,e])
-      // })
+      this.startIndex_colData = 8;
     };
   }
 
@@ -47,13 +49,23 @@ export class AddColumns implements OnInit {
         console.log('In directive with data', [colData]);
 
         // this.host.flex.columns.sort((x, y) => x.visibleIndex - y.visibleIndex);
+        // TODO try to modifies columns to be sorted on vidsibleIndex property before working on it....
+        //TODO
+        const sorted = [
+          ...this.host.flex.columns.sort(
+            (x, y) => x.visibleIndex - y.visibleIndex
+          ),
+        ];
+        this.host.flex.columns.clear();
+        sorted.forEach((x) => this.host.flex.columns.push(x));
 
         setTimeout(() => {
-          let startIndex_colData = this.host.flex.columns.findIndex(
-            (x) => x.name === 'refToColumnDefs'
-          );
+          // let startIndex_colData = this.host.flex.columns.findIndex(
+          //   (x) => x.name === 'refToColumnDefs'
+          // );
+
           colData.forEach((col, idx) => {
-            let lastColIndex = startIndex_colData+idx;
+            let lastColIndex = this.startIndex_colData + idx;
 
             // get the new column index
             let newColIndex = this.host.flex.columns.findIndex(
@@ -71,9 +83,8 @@ export class AddColumns implements OnInit {
           // if(commentCol !== -1) {
           //   this.host.flex.columns.moveElement(commentCol,this.host.flex.columns.length -2);
           // }
-          this.host.flex.collectionView.refresh();          
+          this.host.flex.collectionView.refresh();
         });
-       
       })
     );
   }
